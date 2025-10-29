@@ -8,9 +8,18 @@
     # Clean URL rewrite for record/ID
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^record/([A-Za-z0-9\-]+)$ show.php?id=$1 [L,QSA]
+    RewriteRule ^record/([A-Za-z0-9\-]+)$ index.php?route=record&id=$1 [L,QSA]
 
     # Optional: Remove trailing slashes
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(.*)/$ /$1 [L,R=301]
 </IfModule>
+
+# Disable directory browsing
+Options -Indexes
+
+# Protect sensitive files
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
