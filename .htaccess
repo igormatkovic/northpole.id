@@ -1,0 +1,16 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Redirect to index.php if accessing root
+    DirectoryIndex index.php
+
+    # Clean URL rewrite for record/ID
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^record/([A-Za-z0-9\-]+)$ show.php?id=$1 [L,QSA]
+
+    # Optional: Remove trailing slashes
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)/$ /$1 [L,R=301]
+</IfModule>
