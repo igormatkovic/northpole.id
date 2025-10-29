@@ -1,16 +1,17 @@
-<IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteBase /
+FROM php:8.2-apache
 
-    # Redirect to index.php if accessing root
-    DirectoryIndex index.php
+# Enable Apache mod_rewrite
+RUN a2enmod rewrite
 
-    # Clean URL rewrite for record/ID
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^record/([A-Za-z0-9\-]+)$ show.php?id=$1 [L,QSA]
+# Set working directory
+WORKDIR /var/www/html
 
-    # Optional: Remove trailing slashes
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)/$ /$1 [L,R=301]
-</IfModule>
+# Copy application files
+COPY . /var/www/html/
+
+# Set permissions
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 755 /var/www/html
+
+# Expose port 80
+EXPOSE 80
