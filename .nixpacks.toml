@@ -1,5 +1,18 @@
 [phases.setup]
-nixPkgs = ["php"]
+nixPkgs = ["apacheHttpd", "php", "phpExtensions.mbstring", "phpExtensions.curl"]
+
+[phases.build]
+cmds = [
+  "mkdir -p /var/www/html",
+  "cp -r . /var/www/html",
+  "sed -i 's|#ServerName _|ServerName localhost|' /etc/apache2/httpd.conf",
+  "echo 'LoadModule php_module /run/current-system/sw/lib/httpd/modules/libphp.so' >> /etc/apache2/httpd.conf",
+  "echo 'AddType application/x-httpd-php .php' >> /etc/apache2/httpd.conf",
+  "echo '<Directory /var/www/html>' >> /etc/apache2/httpd.conf",
+  "echo '  AllowOverride All' >> /etc/apache2/httpd.conf",
+  "echo '  Require all granted' >> /etc/apache2/httpd.conf",
+  "echo '</Directory>' >> /etc/apache2/httpd.conf"
+]
 
 [start]
-cmd = "php -S 0.0.0.0:8080 router.php"
+cmd = "httpd -D FOREGROUND -f /etc/apache2/httpd.conf"
