@@ -71,6 +71,7 @@ $is_valid = $license !== null;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>North Pole DLR - License Verification</title>
+    <link rel="icon" href="/favicon.png"/>
     <style>
         * {
             margin: 0;

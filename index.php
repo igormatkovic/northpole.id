@@ -32,6 +32,7 @@ if (preg_match('#^/record/([A-Za-z0-9\-]+)$#', $request_uri, $matches)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>North Pole DLR - License Search</title>
+    <link rel="icon" href="/favicon.png"/>
     <style>
         * {
             margin: 0;
