@@ -1,5 +1,5 @@
 [phases.setup]
-nixPkgs = ["php"]
+nixPkgs = ["php", "nginx"]
 
 [start]
-cmd = "php-fpm -F"
+cmd = "php-fpm -F & nginx -g 'daemon off;'"
